@@ -62,6 +62,10 @@
 {
     visibility: visible;
 }
+.Menu LI UL:Hover
+{
+    visibility: visible;
+}
 .Menu LI UL LI:Hover UL LI
 {
     visibility: visible;

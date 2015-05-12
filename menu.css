@@ -26,7 +26,7 @@
 .Menu LI
 {
 	background-color: #4e4b4c;
-    display: inline;
+    display: inline-block;
     float: left;
     position: relative;
     text-align: center;

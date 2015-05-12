@@ -33,6 +33,7 @@
     width: 175px;
     display: block;
     vertical-align: center;
+    overflow: hidden;
 }
 .Menu LI UL LI:last-child
 {

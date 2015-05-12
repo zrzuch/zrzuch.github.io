@@ -1,14 +1,13 @@
 .Menu
 {
-	list-style: none;
     font-weight: bold;
+    list-style: none;
     width: 100%;
     text-align: center;
     background-color: #4e4b4c;
     height: 52px;
-	/*border-bottom: 1px solid grey;*/
-	border-radius: 0px 0px 15px 15px;
-	border-bottom: 1px solid white;
+    border-radius: 0px 0px 15px 15px;
+    border-bottom: 1px solid white;
 }
 .Menu A
 {
@@ -21,19 +20,17 @@
     list-style: none;
     margin: 0px auto;
     padding: 0px;
-	height: 25px;
+    height: 25px;
 }
 .Menu LI
 {
-	background-color: #4e4b4c;
+    background-color: #4e4b4c;
     display: inline-block;
-    float: left;
     position: relative;
     text-align: center;
     width: 175px;
     display: block;
     vertical-align: center;
-    overflow: hidden;
 }
 .Menu LI UL LI:last-child
 {
@@ -68,8 +65,4 @@
 .Menu LI UL LI:Hover UL LI
 {
     visibility: visible;
-}
-.CL
-{
-    clear: both;
 }

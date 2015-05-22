@@ -24,7 +24,6 @@
 }
 .Menu LI
 {
-    background-color: #4e4b4c;
     float: left;
     position: relative;
     text-align: center;
@@ -44,6 +43,7 @@
 }
 .Menu LI UL LI
 {
+	background-color: #4e4b4c;
 	border-left: 1px solid white;
 	border-right: 1px solid white;
 	vertical-align: center;

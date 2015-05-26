@@ -43,6 +43,7 @@
 }
 .Menu LI UL LI
 {
+	top: -7px;
 	background-color: #4e4b4c;
 	border-left: 1px solid white;
 	border-right: 1px solid white;

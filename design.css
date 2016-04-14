@@ -1,11 +1,11 @@
-Body 
+body 
 {
     background-color: #4e4b4c;
     color: white;
     font-family: "Console", console, monospace;
     margin: 0;
 }
-Body A
+body a
 {
     color: white;
     text-decoration: none;

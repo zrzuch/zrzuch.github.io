@@ -49,6 +49,149 @@
 	</div>
 	<div id = "SectionH">
 	<header></header>
+	<p style = "text-align: center; font-size: 20px; font-weight: bold;">D&D Character Tool</p>
+	</div>
+	<div id = "SectionC">
+	Name <input type="text" name="characterName">
+Player <input type="text" name="playerName">
+<br>
+<br>
+Race <input type="text" name="race">
+Alignment <input type="text" name="alignment">
+Background <input type="text" name="playerBackground">
+<br>
+<br>
+Class <input type="text" name="className">
+Level <input type="text" name="level" maxlength="2" id="twoDigitInput">
+Armor Class <input type="text" name="armorClass" maxlength="2" id="twoDigitInput">
+Speed <input type="text" name="speed" id="twoDigitInput">
+Health <input type="text" name="health" id="twoDigitInput">
+Hit Dice <select>
+	<option value="d6">d6  </option>
+	<option value="d8">d8  </option>
+	<option value="d10">d10</option>
+</select>
+<br>
+<div>
+	<br>
+	<p>
+		<span id="attribText">Strength</span>
+		<input type="checkbox" id="Strength">
+		<input type="text" name="strength" maxlength="2" id="twoDigitInput">
+	</p>
+	<br>
+	<p>
+		<span id="attribText">Dexterity</span>
+		<input type="checkbox" id="Dexterity">
+		<input type="text" name="dexterity" maxlength="2" id="twoDigitInput">
+	</p>
+	<br>
+	<p>
+		<span id="attribText">Constitution</span>
+		<input type="checkbox" id="Constitution">
+		<input type="text" name="constitution" maxlength="2" id="twoDigitInput">
+	</p>
+	<br>
+	<p>
+		<span id="attribText">Intelligence</span>
+		<input type="checkbox" id="Intelligence">
+		<input type="text" name="intelligence" maxlength="2" id="twoDigitInput">
+	</p>
+	<br>
+	<p>
+		<span id="attribText">Wisdom</span>
+		<input type="checkbox" id="Wisdom">
+		<input type="text" name="wisdom" maxlength="2" id="twoDigitInput">
+	</p>
+	<br>
+	<p>
+		<span id="attribText">Charisma</span>
+		<input type="checkbox" id="Charisma">
+		<input type="text" name="charisma" maxlength="2" id="twoDigitInput">
+</div>
+<div>
+	<input type="checkbox" id="Athletics"> Athletics
+	<br>
+	<input type="checkbox" id="Acrobatics"> Acrobatics
+	<br>
+	<input type="checkbox" id="Sleight"> Sleight of Hand
+	<br>
+	<input type="checkbox" id="Stealth"> Stealth
+	<br>
+	<input type="checkbox" id="Arcana"> Arcana
+	<br>
+	<input type="checkbox" id="History"> History
+	<br>
+	<input type="checkbox" id="Investigation"> Investigation
+	<br>
+	<input type="checkbox" id="Nature"> Nature
+	<br>
+	<input type="checkbox" id="Religion"> Religion
+	<br>
+	<input type="checkbox" id="Animal"> Animal Handling
+	<br>
+	<input type="checkbox" id="Insight"> Insight
+	<br>
+	<input type="checkbox" id="Medicine"> Medicine
+	<br>
+	<input type="checkbox" id="Perception"> Perception
+	<br>
+	<input type="checkbox" id="Survival"> Survival
+	<br>
+	<input type="checkbox" id="Deception"> Deception
+	<br>
+	<input type="checkbox" id="Intimidation"> Intimidation
+	<br>
+	<input type="checkbox" id="Performance"> Performance
+	<br>
+	<input type="checkbox" id="Persuasion"> Persuasion
+	<br>
+</div>
+<div>
+	<select id="abil">
+		<option value="Athletics">Athletics</option>
+		<option value="Acrobatics">Acrobatics</option>
+		<option value="Sleight">Sleight</option>
+		<option value="Stealth">Stealth</option>
+		<option value="Arcana">Arcana</option>
+		<option value="History">History</option>
+		<option value="Investigation">Investigation</option>
+		<option value="Nature">Nature</option>
+		<option value="Religion">Religion</option>
+		<option value="Animal">Animal Handling</option>
+		<option value="Insight">Insight</option>
+		<option value="Medicine">Medicine</option>
+		<option value="Perception">Perception</option>
+		<option value="Survival">Survival</option>
+		<option value="Deception">Deception</option>
+		<option value="Intimidation">Intimidation</option>
+		<option value="Performance">Performance</option>
+		<option value="Persuasion">Persuasion</option>
+	</select>
+	<button onclick="calcAbilityCheck()">Ability Check</button>
+	<br>
+	<select id="saving">
+		<option value="strength">Strength</option>
+		<option value="dexterity">Dexterity</option>
+		<option value="constitution">Constitution</option>
+		<option value="intelligence">Intelligence</option>
+		<option value="wisdom">Wisdom</option>
+		<option value="charisma">Charisma</option>
+	</select>
+	<button onclick="calcSavingThrow()">Saving Throw</button>
+	<p class="prevRoll">Current Roll</p>
+<p id="rollOutput"></p>
+<p class="prevRoll">
+	Previous Rolls
+	<button onclick="$('#oldRolls').text('')">Clear</button>
+</p>
+<p id="oldRolls"></p>
+</div>
+</div>
+	</div>
+		
+	<div id = "SectionH">
+	<header></header>
 	<p style = "text-align: center; font-size: 20px; font-weight: bold;">TV Show Timers</p>
 	</div>
 	<div id = "SectionC">
@@ -68,13 +211,68 @@
 	<div id="TWD" class="timeGroup">
 		<div class="days">00</div> : <div class="hours">00</div> : <div class="minutes">00</div> : <div class="seconds">00</div>
 	</div>
+	
 	<br>
 	<br>
 	</div>
+	
 	<!--Footer-->
 	<p style = "text-align: center;">Email Address: <a href = "mailto:zzuch25@gmail.com">zzuch25@gmail.com</a></p>
 	</body>
 <style type="text/css">
+	input
+	{
+		font-size: 18px;
+	}
+	div
+	{
+		display: inline-block;
+		word-break: keep-all;
+		margin-right: 15px;
+	}
+	#attribText
+	{
+		width: 150px;
+		display: inline-block;
+	}
+	#longInput
+	{
+		width: 100px;
+	}
+	#twoDigitInput
+	{
+		width: 30px;
+	}
+	#alignInput
+	{
+		text-align: center;
+	}
+	.prevRoll
+	{
+		text-align: center;
+		font-weight: bold;
+	}
+	#rollOutput
+	{
+		height: 50px;
+		width: 450px;
+	}
+	#oldRolls
+	{
+		height: 100px;
+		width: 450px;
+		overflow-y: auto;
+	}
+	p
+	{
+		margin-bottom: 10px; 
+		margin-top: 10px;
+	}
+	#charName
+	{
+		display: block;
+		text-align: center;
+	}
 	body
 	{
 		background-color: black;
@@ -108,6 +306,117 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
+	
+		$(document).ready(function() 
+	{
+		$("#rollOutput").text(" ");
+		$("#twoDigitInput").keydown(function(e)
+		{
+			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+             // Allow: Ctrl/cmd+A
+            (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+             // Allow: Ctrl/cmd+C
+            (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+             // Allow: Ctrl/cmd+X
+            (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+             // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) 
+            {
+                 // let it happen, don't do anything
+                 return;
+	        }
+	        // Ensure that it is a number and stop the keypress
+	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) 
+	        && (e.keyCode < 96 || e.keyCode > 105)) 
+	        {
+	            e.preventDefault();
+	        }
+		});
+	});
+
+	function calcAbilityCheck() 
+	{
+		var typeOfCheck = $("#abil").val();
+		var abilSelector = "#" + typeOfCheck;
+		var profBonus = 0;
+		var abilityBonus = 0;
+		
+		if (document.getElementById(typeOfCheck).checked)
+		{
+			var charLevel = parseInt($('[name="level"]').val());
+			profBonus = Math.floor((charLevel - 1) / 4) + 2;	
+		}
+		
+		if (typeOfCheck == "Athletics")
+		{
+			var score = parseInt($('[name="strength"]').val());
+			abilityBonus = Math.floor(score / 2) - 5;
+		}
+		else if ($.inArray(typeOfCheck, ["Acrobatics", "Sleight", "Stealth"]) !== -1)
+		{
+			var score = parseInt($('[name="dexterity"]').val());
+			abilityBonus = Math.floor(score / 2) - 5;
+		}
+		else if ($.inArray(typeOfCheck, ["Arcana", "History", "Investigation", "Nature", "Religion"]) !== -1)
+		{
+			var score = parseInt($('[name="intelligence"]').val());
+			abilityBonus = Math.floor(score / 2) - 5;
+		}
+		else if ($.inArray(typeOfCheck, ["Animal", "Insight", "Medicine", "Perception", "Survival"]) !== -1)
+		{
+			var score = parseInt($('[name="wisdom"]').val());
+			abilityBonus = Math.floor(score / 2) - 5;
+		}
+		else if ($.inArray(typeOfCheck, ["Deception", "Intimidation", "Performance", "Persuasion"]) !== -1)
+		{
+			var score = parseInt($('[name="charisma"]').val());
+			abilityBonus = Math.floor(score / 2) - 5;
+		}
+		
+		var roll = getRandomInteger(1, 20);
+		var check = roll + abilityBonus + profBonus;
+
+		if (typeOfCheck == "Sleight")
+		{
+			typeOfCheck = "Sleight of Hand";
+		}
+		else if (typeOfCheck == "Animal")
+		{
+			typeOfCheck = "Animal Handling";
+		}
+
+		updateRollLog( typeOfCheck + " = " + roll.toString() + " (d20) + " + abilityBonus.toString() + " + " + profBonus.toString() + " = " + check.toString());
+	}
+
+	function calcSavingThrow() 
+	{
+		var typeOfSave = $("#saving").val();
+		var saveType = typeOfSave.charAt(0).toUpperCase() + typeOfSave.substr(1);
+		var score = parseInt($('[name="' + typeOfSave + '"]').val());
+		var abilityBonus = Math.floor(score / 2) - 5;
+		var roll = getRandomInteger(1, 20);
+		var profBonus = 0;
+		if (document.getElementById(saveType).checked)
+		{
+			var charLevel = parseInt($('[name="level"]').val());
+			profBonus = Math.floor((charLevel - 1) / 4) + 2;
+		}
+		var check = roll + abilityBonus + profBonus;
+
+		updateRollLog( saveType + " = " + roll.toString() + " (d20) + " + abilityBonus.toString() + " + " + profBonus.toString() + " = " + check.toString());
+	}
+
+	function updateRollLog(output)
+	{
+		$("#oldRolls").prepend($("#rollOutput").text() + "<br>");
+
+		$("#rollOutput").text(output);
+	}
+
+	function getRandomInteger(min, max)
+	{
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
 
 	var timeArrays = [];
 

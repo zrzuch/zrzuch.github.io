@@ -6,88 +6,88 @@
 </head>
 <body>
 <div>
-	Class 
-	<select id="classSelector" onchange="updateClassFields()">
-		<option value="Barbarian">Barbarian</option>
-		<option value="Bard">Bard</option>
-		<option value="Cleric">Cleric</option>
-		<option value="Druid">Druid</option>
-		<option value="Fighter">Fighter</option>
-		<option value="Monk">Monk</option>
-		<option value="Paladin">Paladin</option>
-		<option value="Ranger">Ranger</option>
-		<option value="Rogue">Rogue</option>
-		<option value="Sorcerer">Sorcerer</option>
-		<option value="Warlock">Warlock</option>
-		<option value="Wizard">Wizard</option>
-	</select>
-</div>
-<div>
-	Level 
-	<input type="text" name="level" maxlength="2" class="twoDigitInput" class="saveAttrib">
-</div>
-<div>
-	Armor Class 
-	<input type="text" name="armorClass" maxlength="2" class="twoDigitInput">
-</div>
-<div>
-	Speed 
-	<input type="text" name="speed" maxlength="2" class="twoDigitInput">
-</div>
-<div>
-	Health 
-	<input type="text" name="health" maxlength="2" class="twoDigitInput">
-</div>
-<div>
-	Hit Dice = 
-	<span id="hitDice"></span>
+	<div class="divHeaderMenu">
+		Class 
+		<select id="classSelector" onchange="updateClassFields()">
+			<option value="Barbarian">Barbarian</option>
+			<option value="Bard">Bard</option>
+			<option value="Cleric">Cleric</option>
+			<option value="Druid">Druid</option>
+			<option value="Fighter">Fighter</option>
+			<option value="Monk">Monk</option>
+			<option value="Paladin">Paladin</option>
+			<option value="Ranger">Ranger</option>
+			<option value="Rogue">Rogue</option>
+			<option value="Sorcerer">Sorcerer</option>
+			<option value="Warlock">Warlock</option>
+			<option value="Wizard">Wizard</option>
+		</select>
+	</div>
+	<div class="divHeaderMenu">
+		Level 
+		<input type="tel" name="level" maxlength="2" class="twoDigitInput" class="saveAttrib">
+	</div>
+	<div class="divHeaderMenu">
+		Armor Class 
+		<input type="tel" name="armorClass" maxlength="2" class="twoDigitInput">
+	</div>
+	<div class="divHeaderMenu">
+		Speed 
+		<input type="tel" name="speed" maxlength="2" class="twoDigitInput">
+	</div>
+	<div class="divHeaderMenu">
+		Health 
+		<input type="tel" name="health" maxlength="3" class="twoDigitInput">
+		 / 
+		<input type="tel" name="maxHealth" maxlength="3" class="twoDigitInput">
+	</div>
+	<div class="divHeaderMenu">
+		Hit Dice 
+		<span id="hitDice"></span>
+	</div>
+	<div class="divHeaderMenu">
+		Saving Throw Proficiencies 
+		<div class="divHeaderMenu"><span id="savTProf"></span></div>
+	</div>
 </div>
 <br>
-<div>
-	<span class="attribTitle">Attributes = Save DC</span>
+<div id="attribMenu" class="divHeaderMenu">
 	<p style="margin-top: 0;">
 		<span id="attribText">Strength</span>
-		<input type="checkbox" id="Strength">
-		<input type="text" name="strength" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
+		<input type="tel" name="strength" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
 		<span id="strSaveDC"></span>
 	</p>
 	<br>
 	<p>
 		<span id="attribText">Dexterity</span>
-		<input type="checkbox" id="Dexterity">
-		<input type="text" name="dexterity" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
+		<input type="tel" name="dexterity" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
 		<span id="dexSaveDC"></span>
 	</p>
 	<br>
 	<p>
 		<span id="attribText">Constitution</span>
-		<input type="checkbox" id="Constitution">
-		<input type="text" name="constitution" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
+		<input type="tel" name="constitution" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
 		<span id="conSaveDC"></span>
 	</p>
 	<br>
 	<p>
 		<span id="attribText">Intelligence</span>
-		<input type="checkbox" id="Intelligence">
-		<input type="text" name="intelligence" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
+		<input type="tel" name="intelligence" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
 		<span id="intSaveDC"></span>
 	</p>
 	<br>
 	<p>
 		<span id="attribText">Wisdom</span>
-		<input type="checkbox" id="Wisdom">
-		<input type="text" name="wisdom" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
+		<input type="tel" name="wisdom" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
 		<span id="wisSaveDC"></span>
 	</p>
 	<br>
 	<p>
 		<span id="attribText">Charisma</span>
-		<input type="checkbox" id="Charisma">
-		<input type="text" name="charisma" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
+		<input type="tel" name="charisma" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
 		<span id="charSaveDC"></span>
 </div>
-<div>
-	<span class="attribTitle">Proficiencies</span>
+<div id="profMenu" class="divHeaderMenu">
 	<input type="checkbox" id="Athletics"> Athletics
 	<br>
 	<input type="checkbox" id="Acrobatics"> Acrobatics
@@ -124,43 +124,96 @@
 	<br>
 	<input type="checkbox" id="Persuasion"> Persuasion
 	<br>
+	<div class="bloc">
+		<select class="select-toggle" multiple="multiple">
+			<option value="Athletics"> Athletics</option>
+			<option value="Acrobatics"> Acrobatics</option>
+			<option value="Sleight"> Sleight of Hand</option>
+			<option value="Stealth"> Stealth</option>
+			<option value="Arcana"> Arcana</option>
+			<option value="History"> History</option>
+			<option value="Investigation"> Investigation</option>
+			<option value="Nature"> Nature</option>
+			<option value="Religion"> Religion</option>
+			<option value="Animal"> Animal Handling</option>
+			<option value="Insight"> Insight</option>
+			<option value="Medicine"> Medicine</option>
+			<option value="Perception"> Perception</option>
+			<option value="Survival"> Survival</option>
+			<option value="Deception"> Deception</option>
+			<option value="Intimidation"> Intimidation</option>
+			<option value="Performance"> Performance</option>
+			<option value="Persuasion"> Persuasion</option>
+		</select>
+	</div>
 </div>
-<div>
-	<input type="text" name="roll" id="diceRoll">
-	<button onclick="calcRoll()">Roll</button>
-	<button onclick="$('#diceRoll').val('')">Clear</button>
-	<br>
-	<select id="abil" class="inputSelectors">
-		<option value="Athletics">Athletics</option>
-		<option value="Acrobatics">Acrobatics</option>
-		<option value="Sleight">Sleight</option>
-		<option value="Stealth">Stealth</option>
-		<option value="Arcana">Arcana</option>
-		<option value="History">History</option>
-		<option value="Investigation">Investigation</option>
-		<option value="Nature">Nature</option>
-		<option value="Religion">Religion</option>
-		<option value="Animal">Animal Handling</option>
-		<option value="Insight">Insight</option>
-		<option value="Medicine">Medicine</option>
-		<option value="Perception">Perception</option>
-		<option value="Survival">Survival</option>
-		<option value="Deception">Deception</option>
-		<option value="Intimidation">Intimidation</option>
-		<option value="Performance">Performance</option>
-		<option value="Persuasion">Persuasion</option>
-	</select>
-	<button onclick="calcAbilityCheck()">Ability Check</button>
-	<br>
-	<select id="saving" class="inputSelectors">
-		<option value="strength">Strength</option>
-		<option value="dexterity">Dexterity</option>
-		<option value="constitution">Constitution</option>
-		<option value="intelligence">Intelligence</option>
-		<option value="wisdom">Wisdom</option>
-		<option value="charisma">Charisma</option>
-	</select>
-	<button onclick="calcSavingThrow()">Saving Throw</button>
+<div id="rollMenu">
+	<div id="rollInput" class="divHeaderMenu">
+		<div>
+			<input type="text" name="roll" id="diceRoll">
+		</div>
+		<div>
+			<button onclick="calcRoll()" class="rollButtons">Roll</button>
+		</div>
+		<div>
+			<button onclick="$('#diceRoll').val('')" class="rollButtons">Clear</button>
+		</div>
+	</div>
+	<div class="divHeaderMenu">
+		<div>
+			<select id="attack">
+				<option value="Strength">Strength</option>
+				<option value="profStrength">Proficient Strength</option>
+				<option value="Dexterity">Dexterity</option>
+				<option value="profDexterity">Proficient Dexterity</option>
+			</select>
+		</div>
+		<div>
+			<button onclick="calcAttackRoll()">Attack Roll</button>
+		</div>
+	</div>
+	<div class="divHeaderMenu">
+		<div>
+			<select id="abil" class="inputSelectors">
+				<option value="Athletics">Athletics</option>
+				<option value="Acrobatics">Acrobatics</option>
+				<option value="Sleight">Sleight</option>
+				<option value="Stealth">Stealth</option>
+				<option value="Arcana">Arcana</option>
+				<option value="History">History</option>
+				<option value="Investigation">Investigation</option>
+				<option value="Nature">Nature</option>
+				<option value="Religion">Religion</option>
+				<option value="Animal">Animal Handling</option>
+				<option value="Insight">Insight</option>
+				<option value="Medicine">Medicine</option>
+				<option value="Perception">Perception</option>
+				<option value="Survival">Survival</option>
+				<option value="Deception">Deception</option>
+				<option value="Intimidation">Intimidation</option>
+				<option value="Performance">Performance</option>
+				<option value="Persuasion">Persuasion</option>
+			</select>
+		</div>
+		<div>
+			<button onclick="calcAbilityCheck()">Ability Check</button>
+		</div>
+	</div>
+	<div class="divHeaderMenu">
+		<div>
+			<select id="saving" class="inputSelectors">
+				<option value="strength">Strength</option>
+				<option value="dexterity">Dexterity</option>
+				<option value="constitution">Constitution</option>
+				<option value="intelligence">Intelligence</option>
+				<option value="wisdom">Wisdom</option>
+				<option value="charisma">Charisma</option>
+			</select>
+		</div>
+		<div>
+			<button onclick="calcSavingThrow()">Saving Throw</button>
+		</div>
+	</div>
 	<p class="prevRoll">
 		Current Roll
 		<button onclick="$('#rollOutput').text('')">Clear</button>
@@ -180,42 +233,60 @@
 	html
 	{
 		font-family: "Verdana", Verdana, sans-serif;
+		font-size: 24px;
+	}
+	span
+	{
+		word-break: keep-all;
 	}
 	input
 	{
-		font-size: 18px;
+		font-size: 24px;
+		border-radius: 5px;
+		border-style: solid;
+		border-color: black;
 	}
 	div
 	{
-		display: inline-block;
 		word-break: keep-all;
+		display: inline-block;
 	}
 	select
 	{
-		font-size: 18px;
+		font-size: 24px;
 	}
 	button
 	{
-		font-size: 18px;
+		font-size: 24px;
+		border-radius: 5px;
+	}
+	#attribMenu
+	{
+		width: 54.5%;
+	}
+	#profMenu
+	{
+		width: 43.5%;
+		word-break: keep-all;
 	}
 	.attribTitle
 	{
 		display: block;
 		text-align: center;
 		font-weight: bold;
-		font-size: 18px;
+		font-size: 20px;
 		margin-top: 10px;
 		margin-bottom: 10px;
 	}
 	.inputSelectors
 	{
-		font-size: 18px;
-		width: 196px;
+		width: 160px;
 		margin-top: 15px;
 	}
+	
 	#attribText
 	{
-		width: 100px;
+		width: 150px;
 		display: inline-block;
 	}
 	#longInput
@@ -224,12 +295,22 @@
 	}
 	.twoDigitInput
 	{
-		width: 25px;
+		width: 50px;
 	}
 	#alignInput
 	{
 		text-align: center;
 	}
+	
+	#rollMenu
+	{
+		width: 100%;
+	}
+	#diceRoll
+	{
+		width: 300px;
+	}
+	
 	.prevRoll
 	{
 		text-align: center;
@@ -238,31 +319,56 @@
 	}
 	#rollOutput
 	{
-		height: 50px;
-		width: 450px;
-		overflow-y: auto;
-		border-style: solid;
-		border-width: 2px;
-		border-radius: 5px;
+		height: auto;
+		width: 100%;
 	}
 	#oldRolls
 	{
-		height: 100px;
-		width: 450px;
-		overflow-y: auto;
-		border-style: solid;
-		border-width: 2px;
-		border-radius: 5px;
+		height: auto;
+		width: 100%;
 	}
 	p
 	{
-		margin-bottom: 10px; 
-		margin-top: 10px;
+		margin-bottom: 18px; 
+		margin-top: 19px;
 	}
-	#charName
+	#savTProf
 	{
-		display: block;
-		text-align: center;
+		padding: 3px;
+		border-radius: 5px;
+		border-style: solid;
+		border-color: black;
+		border-width: 2px;
+	}
+	#hitDice
+	{
+		padding: 3px;
+		border-radius: 5px;
+		border-style: solid;
+		border-color: black;
+		border-width: 2px;
+	}
+	.divHeaderMenu
+	{
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	.select-toggle
+	{
+		height: 560px;
+	}
+	.bloc
+	{
+		display: inline-block;
+		vertical-align: top;
+		overflow: hidden;
+		border-radius: 5px;
+		border: solid black 1px;
+	}
+	.bloc select
+	{
+		padding: 10px;
+		margin: -5px -20px -5px -5px;
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -272,6 +378,8 @@
 	{
 		initFields();
 		updateClassFields();
+		$("#rollOutput").css("height: 35px;");
+		$("#oldRolls").text(" ");
 		$(".twoDigitInput").keydown(function(e)
 		{
 			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
@@ -324,8 +432,25 @@
 		});
 		$(".twoDigitInput").keyup(function () 
 		{
-			initFields();
 			updateSaveDCs();
+		});
+		$(window).resize(function ()
+		{
+			if ($( window ).width() <= 536)
+			{
+				$("#attribMenu").css("width", "100%");
+				$("#profMenu").css("width", "100%");
+			}
+			else
+			{
+				$("#attribMenu").css("width", "54.5%");
+				$("#profMenu").css("width", "43.5%");
+			}
+		});
+		$('.select-toggle option').mousedown(function(event)
+		{
+			$(this).prop('selected', !$(this).prop('selected'));
+			event.preventDefault();
 		});
 	});
 
@@ -367,6 +492,35 @@
 		}
 	}
 
+	function calcAttackRoll()
+	{
+		var attackType = $("#attack").val();
+		var profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
+		var strengthScore = Math.floor(parseInt($('[name="strength"]').val()) / 2) - 5;
+		var dexterityScore = Math.floor(parseInt($('[name="dexterity"]').val()) / 2) - 5;
+		var roll = getRandomInteger(1, 20);
+		if (attackType == "Strength")
+		{
+			totalRoll = roll + strengthScore;
+			updateRollLog("d20 ( " + roll.toString() + " ) + " + strengthScore.toString() + " + 0 = " + totalRoll.toString());
+		}
+		else if (attackType == "profStrength")
+		{
+			totalRoll = roll + strengthScore + profBonus;
+			updateRollLog("d20 ( " + roll.toString() + " ) + " + strengthScore.toString() + " + " + profBonus.toString() + " = " + totalRoll.toString());
+		}
+		else if (attackType == "Dexterity")
+		{
+			totalRoll = roll + dexterityScore;
+			updateRollLog("d20 ( " + roll.toString() + " ) + " + dexterityScore.toString() + " + 0 = " + totalRoll.toString());
+		}
+		else
+		{
+			totalRoll = roll + dexterityScore + profBonus;
+			updateRollLog("d20 ( " + roll.toString() + " ) + " + dexterityScore.toString() + " + " + profBonus.toString() + " = " + totalRoll.toString());
+		}
+	}
+
 	function updateClassFields()
 	{
 		var classSelection = $("#classSelector").val();
@@ -385,6 +539,35 @@
 		else
 		{
 			$("#hitDice").text("d6");	
+		}
+		// str, dex, con, int, wis, cha
+		if ($.inArray(classSelection, ["Barbarian", "Fighter"]) !== -1) // str, con
+		{
+			$("#savTProf").text("Strength and Constitution");
+		}
+		else if ($.inArray(classSelection, ["Cleric", "Paladin", "Warlock"]) !== -1) // wis, cha
+		{
+			$("#savTProf").text("Wisdom and Charisma");
+		}
+		else if ($.inArray(classSelection, ["Druid", "Wizard"]) !== -1) // int, wis
+		{
+			$("#savTProf").text("Intelligence and Wisdom");
+		}
+		else if ($.inArray(classSelection, ["Monk", "Ranger"]) !== -1) // str, dex
+		{
+			$("#savTProf").text("Strength and Dexterity");
+		}
+		else if (classSelection == "Bard") // dex, cha
+		{
+			$("#savTProf").text("Dexterity and Charisma");
+		}
+		else if (classSelection == "Rogue") // dex, int
+		{
+			$("#savTProf").text("Dexterity and Intelligence");
+		}
+		else // con, cha
+		{
+			$("#savTProf").text("Constitution and Charisma");
 		}
 		updateSaveDCs();
 	}
@@ -634,7 +817,7 @@
 				{
 					var sNumber = parseInt(secondNumber);
 					var currentRolls = 0;
-					rollsOutput += "( " + firstNumber + "d" + secondNumber + " = ";
+					rollsOutput += firstNumber + "d" + secondNumber + " ( ";
 					for (var k = 0; k < fNumber; ++k)
 					{
 						var currentRoll = getRandomInteger(1, sNumber);
@@ -650,7 +833,7 @@
 
 						currentRolls += currentRoll;
 					}
-					if (fNumber > 1)
+					if (fNumber > 1 && rolls.length > 1)
 					{
 						rollsOutput += " ) " + currentRolls;
 					}

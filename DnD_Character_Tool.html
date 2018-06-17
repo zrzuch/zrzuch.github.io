@@ -42,6 +42,12 @@
 		<input type="tel" name="maxHealth" maxlength="3" class="twoDigitInput">
 	</div>
 	<div class="divHeaderMenu">
+		Spell Points
+		<input type="tel" name="health" maxlength="3" class="twoDigitInput">
+		 / 
+		<input type="tel" name="maxHealth" maxlength="3" class="twoDigitInput">
+	</div>
+	<div class="divHeaderMenu">
 		Hit Dice 
 		<span id="hitDice"></span>
 	</div>
@@ -86,46 +92,11 @@
 		<span id="attribText">Charisma</span>
 		<input type="tel" name="charisma" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
 		<span id="charSaveDC"></span>
+	</p>
 </div>
 <div id="profMenu" class="divHeaderMenu">
-	<input type="checkbox" id="Athletics"> Athletics
-	<br>
-	<input type="checkbox" id="Acrobatics"> Acrobatics
-	<br>
-	<input type="checkbox" id="Sleight"> Sleight of Hand
-	<br>
-	<input type="checkbox" id="Stealth"> Stealth
-	<br>
-	<input type="checkbox" id="Arcana"> Arcana
-	<br>
-	<input type="checkbox" id="History"> History
-	<br>
-	<input type="checkbox" id="Investigation"> Investigation
-	<br>
-	<input type="checkbox" id="Nature"> Nature
-	<br>
-	<input type="checkbox" id="Religion"> Religion
-	<br>
-	<input type="checkbox" id="Animal"> Animal Handling
-	<br>
-	<input type="checkbox" id="Insight"> Insight
-	<br>
-	<input type="checkbox" id="Medicine"> Medicine
-	<br>
-	<input type="checkbox" id="Perception"> Perception
-	<br>
-	<input type="checkbox" id="Survival"> Survival
-	<br>
-	<input type="checkbox" id="Deception"> Deception
-	<br>
-	<input type="checkbox" id="Intimidation"> Intimidation
-	<br>
-	<input type="checkbox" id="Performance"> Performance
-	<br>
-	<input type="checkbox" id="Persuasion"> Persuasion
-	<br>
 	<div class="bloc">
-		<select class="select-toggle" multiple="multiple">
+		<select id="profList" class="select-toggle" multiple="multiple">
 			<option value="Athletics"> Athletics</option>
 			<option value="Acrobatics"> Acrobatics</option>
 			<option value="Sleight"> Sleight of Hand</option>
@@ -166,6 +137,9 @@
 				<option value="profStrength">Proficient Strength</option>
 				<option value="Dexterity">Dexterity</option>
 				<option value="profDexterity">Proficient Dexterity</option>
+				<option value="Intelligence">Intelligence</option>
+				<option value="Wisdom">Wisdom</option>
+				<option value="Charisma">Charisma</option>
 			</select>
 		</div>
 		<div>
@@ -208,12 +182,14 @@
 				<option value="intelligence">Intelligence</option>
 				<option value="wisdom">Wisdom</option>
 				<option value="charisma">Charisma</option>
+				<option value="Death">Death</option>
 			</select>
 		</div>
 		<div>
 			<button onclick="calcSavingThrow()">Saving Throw</button>
 		</div>
 	</div>
+	<button onclick="calcInitiative()">Initiative Roll</button>
 	<p class="prevRoll">
 		Current Roll
 		<button onclick="$('#rollOutput').text('')">Clear</button>
@@ -224,7 +200,6 @@
 	<button onclick="$('#oldRolls').text('')">Clear</button>
 </p>
 <p id="oldRolls"></p>
-</div>
 </div>
 
 <!-- save to file -->
@@ -257,51 +232,37 @@
 	}
 	button
 	{
+		margin-top: 10px;
 		font-size: 24px;
 		border-radius: 5px;
 	}
 	#attribMenu
 	{
-		width: 54.5%;
+		width: 58.5%;
 	}
 	#profMenu
 	{
-		width: 43.5%;
+		width: 39.5%;
 		word-break: keep-all;
-	}
-	.attribTitle
-	{
-		display: block;
-		text-align: center;
-		font-weight: bold;
-		font-size: 20px;
-		margin-top: 10px;
-		margin-bottom: 10px;
 	}
 	.inputSelectors
 	{
 		width: 160px;
-		margin-top: 15px;
 	}
-	
 	#attribText
 	{
 		width: 150px;
 		display: inline-block;
 	}
-	#longInput
-	{
-		width: 100px;
-	}
 	.twoDigitInput
 	{
+		text-align: center;
 		width: 50px;
 	}
 	#alignInput
 	{
 		text-align: center;
 	}
-	
 	#rollMenu
 	{
 		width: 100%;
@@ -310,12 +271,15 @@
 	{
 		width: 300px;
 	}
-	
 	.prevRoll
 	{
 		text-align: center;
 		font-weight: bold;
-		font-size: 18px;
+		font-size: 24px;
+	}
+	.prevRoll button
+	{
+		margin-top: 0;
 	}
 	#rollOutput
 	{
@@ -329,8 +293,7 @@
 	}
 	p
 	{
-		margin-bottom: 18px; 
-		margin-top: 19px;
+		margin-bottom: 18px;
 	}
 	#savTProf
 	{
@@ -355,12 +318,11 @@
 	}
 	.select-toggle
 	{
-		height: 560px;
+		height: 570px;
 	}
 	.bloc
 	{
 		display: inline-block;
-		vertical-align: top;
 		overflow: hidden;
 		border-radius: 5px;
 		border: solid black 1px;
@@ -376,10 +338,7 @@
 
 	$(document).ready(function() 
 	{
-		initFields();
-		updateClassFields();
-		$("#rollOutput").css("height: 35px;");
-		$("#oldRolls").text(" ");
+		init();
 		$(".twoDigitInput").keydown(function(e)
 		{
 			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
@@ -436,16 +395,7 @@
 		});
 		$(window).resize(function ()
 		{
-			if ($( window ).width() <= 536)
-			{
-				$("#attribMenu").css("width", "100%");
-				$("#profMenu").css("width", "100%");
-			}
-			else
-			{
-				$("#attribMenu").css("width", "54.5%");
-				$("#profMenu").css("width", "43.5%");
-			}
+			updateMenuWidth();
 		});
 		$('.select-toggle option').mousedown(function(event)
 		{
@@ -454,8 +404,24 @@
 		});
 	});
 
-	function initFields()
+	function updateMenuWidth()
 	{
+		if ($( window ).width() <= 550)
+		{
+			$("#attribMenu").css("width", "100%");
+			$("#profMenu").css("width", "100%");
+		}
+		else
+		{
+			$("#attribMenu").css("width", "58.5%");
+			$("#profMenu").css("width", "39.5%");
+		}
+	}
+
+	function init()
+	{
+		updateMenuWidth();
+		updateClassFields();
 		if ($('[name="level"]').val().trim() == "")
 		{
 			$('[name="level"]').val("1");	
@@ -490,34 +456,59 @@
 		{
 			$('[name="charisma"]').val("10");
 		}
+		updateSaveDCs();
 	}
 
 	function calcAttackRoll()
 	{
 		var attackType = $("#attack").val();
-		var profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
-		var strengthScore = Math.floor(parseInt($('[name="strength"]').val()) / 2) - 5;
-		var dexterityScore = Math.floor(parseInt($('[name="dexterity"]').val()) / 2) - 5;
 		var roll = getRandomInteger(1, 20);
 		if (attackType == "Strength")
 		{
+			var strengthScore = Math.floor(parseInt($('[name="strength"]').val()) / 2) - 5;
 			totalRoll = roll + strengthScore;
 			updateRollLog("d20 ( " + roll.toString() + " ) + " + strengthScore.toString() + " + 0 = " + totalRoll.toString());
 		}
 		else if (attackType == "profStrength")
 		{
+			var strengthScore = Math.floor(parseInt($('[name="strength"]').val()) / 2) - 5;
+			var profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
 			totalRoll = roll + strengthScore + profBonus;
 			updateRollLog("d20 ( " + roll.toString() + " ) + " + strengthScore.toString() + " + " + profBonus.toString() + " = " + totalRoll.toString());
 		}
 		else if (attackType == "Dexterity")
 		{
+			var dexterityScore = Math.floor(parseInt($('[name="dexterity"]').val()) / 2) - 5;
 			totalRoll = roll + dexterityScore;
 			updateRollLog("d20 ( " + roll.toString() + " ) + " + dexterityScore.toString() + " + 0 = " + totalRoll.toString());
 		}
-		else
+		else if (attackType == "profDexterity")
 		{
+			var dexterityScore = Math.floor(parseInt($('[name="dexterity"]').val()) / 2) - 5;
+			var profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
 			totalRoll = roll + dexterityScore + profBonus;
 			updateRollLog("d20 ( " + roll.toString() + " ) + " + dexterityScore.toString() + " + " + profBonus.toString() + " = " + totalRoll.toString());
+		}
+		else if (attackType == "Intelligence")
+		{
+			var score = Math.floor(parseInt($('[name="intelligence"]').val()) / 2) - 5;
+			var profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
+			totalRoll = roll + score + profBonus;
+			updateRollLog("d20 ( " + roll.toString() + " ) + " + score.toString() + " + " + profBonus.toString() + " = " + totalRoll.toString());
+		}
+		else if (attackType == "Wisdom")
+		{
+			var score = Math.floor(parseInt($('[name="wisdom"]').val()) / 2) - 5;
+			var profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
+			totalRoll = roll + score + profBonus;
+			updateRollLog("d20 ( " + roll.toString() + " ) + " + score.toString() + " + " + profBonus.toString() + " = " + totalRoll.toString());
+		}
+		else
+		{
+			var score = Math.floor(parseInt($('[name="charisma"]').val()) / 2) - 5;
+			var profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
+			totalRoll = roll + score + profBonus;
+			updateRollLog("d20 ( " + roll.toString() + " ) + " + score.toString() + " + " + profBonus.toString() + " = " + totalRoll.toString());
 		}
 	}
 
@@ -650,11 +641,12 @@
 	function calcAbilityCheck() 
 	{
 		var typeOfCheck = $("#abil").val();
+		var proficiencies = $("#profList").val();
 		var abilSelector = "#" + typeOfCheck;
 		var profBonus = 0;
 		var abilityBonus = 0;
 		
-		if (document.getElementById(typeOfCheck).checked)
+		if ($.inArray(typeOfCheck, proficiencies) !== -1)
 		{
 			var charLevel = parseInt($('[name="level"]').val());
 			profBonus = Math.floor((charLevel - 1) / 4) + 2;	
@@ -701,20 +693,78 @@
 		updateRollLog( typeOfCheck + " = " + roll.toString() + " (d20) + " + abilityBonus.toString() + " + " + profBonus.toString() + " = " + check.toString());
 	}
 
+	function calcInitiative() 
+	{
+		var roll = getRandomInteger(1, 20);
+
+		var bonus = Math.floor(parseInt($('[name="dexterity"]').val()) / 2) - 5;
+
+		var check = roll + bonus;
+
+		updateRollLog("Initiative = " + roll.toString() + " (d20) + " + bonus.toString() + " = " + check.toString());
+	}
+
 	function calcSavingThrow() 
 	{
 		var typeOfSave = $("#saving").val();
-		var saveType = typeOfSave.charAt(0).toUpperCase() + typeOfSave.substr(1);
+		var roll = getRandomInteger(1, 20);
+		if (typeOfSave == "Death")
+		{
+			var strIsSuccess = (roll >= 10 ? "Success" : "Fail");
+			updateRollLog( "Death Saving Throw = " + roll.toString() + " (d20) = " + strIsSuccess);
+			return;
+		}
 		var score = parseInt($('[name="' + typeOfSave + '"]').val());
 		var abilityBonus = Math.floor(score / 2) - 5;
-		var roll = getRandomInteger(1, 20);
 		var profBonus = 0;
-		if (document.getElementById(saveType).checked)
+		var charLevel = parseInt($('[name="level"]').val());
+		var profBonus = 0;
+		var classSelection = $("#classSelector").val();
+		if (typeOfSave == "strength")
 		{
-			var charLevel = parseInt($('[name="level"]').val());
-			profBonus = Math.floor((charLevel - 1) / 4) + 2;
+			if ($.inArray(classSelection, ["Barbarian", "Fighter", "Monk", "Ranger"]) !== -1)
+			{
+				profBonus = Math.floor((charLevel - 1) / 4) + 2;
+			}
+		}
+		else if (typeOfSave == "dexterity")
+		{
+			if ($.inArray(classSelection, ["Bard", "Monk", "Ranger", "Rogue"]) !== -1)
+			{
+				profBonus = Math.floor((charLevel - 1) / 4) + 2;
+			}
+		}
+		else if (typeOfSave == "constitution")
+		{
+			if ($.inArray(classSelection, ["Barbarian", "Fighter", "Sorcerer"]) !== -1)
+			{
+				profBonus = Math.floor((charLevel - 1) / 4) + 2;
+			}
+		}
+		else if (typeOfSave == "intelligence")
+		{
+			if ($.inArray(classSelection, ["Druid", "Rogue", "Wizard"]) !== -1)
+			{
+				profBonus = Math.floor((charLevel - 1) / 4) + 2;
+			}
+		}
+		else if (typeOfSave == "wisdom")
+		{
+			if ($.inArray(classSelection, ["Cleric", "Druid", "Paladin", "Warlock", "Wizard"]) !== -1)
+			{
+				profBonus = Math.floor((charLevel - 1) / 4) + 2;
+			}
+		}
+		else
+		{
+			if ($.inArray(classSelection, ["Bard", "Cleric", "Paladin", "Sorcerer", "Warlock"]) !== -1)
+			{
+				profBonus = Math.floor((charLevel - 1) / 4) + 2;
+			}
 		}
 		var check = roll + abilityBonus + profBonus;
+
+		var saveType = typeOfSave.charAt(0).toUpperCase() + typeOfSave.substr(1);
 
 		updateRollLog( saveType + " = " + roll.toString() + " (d20) + " + abilityBonus.toString() + " + " + profBonus.toString() + " = " + check.toString());
 	}
@@ -864,8 +914,11 @@
 
 	function updateRollLog(output)
 	{
-		$("#oldRolls").prepend($("#rollOutput").text() + "<br>");
-
+		var lastRoll = $("#rollOutput").text().trim();
+		if (lastRoll != "" && lastRoll != "<br>")
+		{
+			$("#oldRolls").prepend(lastRoll + "<br>");
+		}
 		$("#rollOutput").text(output);
 	}
 

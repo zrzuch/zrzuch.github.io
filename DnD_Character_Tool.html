@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title></title>
-	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"/>
 </head>
 <body>
 <div>
@@ -58,37 +58,32 @@
 </div>
 <br>
 <div id="attribMenu" class="divHeaderMenu">
-	<p style="margin-top: 0;">
+	<p style="margin-top: 15px;">
 		<span id="attribText">Strength</span>
 		<input type="tel" name="strength" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
 		<span id="strSaveDC"></span>
 	</p>
-	<br>
 	<p>
 		<span id="attribText">Dexterity</span>
 		<input type="tel" name="dexterity" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
 		<span id="dexSaveDC"></span>
 	</p>
-	<br>
 	<p>
 		<span id="attribText">Constitution</span>
 		<input type="tel" name="constitution" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
 		<span id="conSaveDC"></span>
 	</p>
-	<br>
 	<p>
 		<span id="attribText">Intelligence</span>
 		<input type="tel" name="intelligence" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
 		<span id="intSaveDC"></span>
 	</p>
-	<br>
 	<p>
 		<span id="attribText">Wisdom</span>
 		<input type="tel" name="wisdom" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
 		<span id="wisSaveDC"></span>
 	</p>
-	<br>
-	<p>
+	<p class="charPBlock">
 		<span id="attribText">Charisma</span>
 		<input type="tel" name="charisma" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
 		<span id="charSaveDC"></span>
@@ -120,7 +115,7 @@
 </div>
 <div id="rollMenu">
 	<div id="rollInput" class="divHeaderMenu">
-		<div>
+		<div id="diceStyle">
 			<input type="text" name="roll" id="diceRoll">
 		</div>
 		<div>
@@ -209,6 +204,7 @@
 	{
 		font-family: "Verdana", Verdana, sans-serif;
 		font-size: 24px;
+		margin-right: 10px;
 	}
 	span
 	{
@@ -263,13 +259,13 @@
 	{
 		text-align: center;
 	}
-	#rollMenu
+	#diceRoll
 	{
 		width: 100%;
 	}
-	#diceRoll
+	#rollMenu
 	{
-		width: 300px;
+		width: 100%;
 	}
 	.prevRoll
 	{
@@ -293,15 +289,11 @@
 	}
 	p
 	{
-		margin-bottom: 18px;
+		margin-bottom: 78px;
 	}
 	#savTProf
 	{
 		padding: 3px;
-		border-radius: 5px;
-		border-style: solid;
-		border-color: black;
-		border-width: 2px;
 	}
 	#hitDice
 	{
@@ -314,11 +306,10 @@
 	.divHeaderMenu
 	{
 		margin-top: 10px;
-		margin-bottom: 10px;
 	}
 	.select-toggle
 	{
-		width: 250px;
+		width: 220px;
 		height: 600px;
 	}
 	.bloc
@@ -407,16 +398,43 @@
 
 	function updateMenuWidth()
 	{
-		if ($( window ).width() <= 550)
+		var window_width = $( window ).width();
+		if (window_width < 340)
+		{
+			$("#savTProf").css("border", "none");
+			$("#savTProf").css("text-decoration", "underline");
+		}
+		else
+		{
+			$("#savTProf").css("border-radius", "5px");
+			$("#savTProf").css("border-style", "solid");
+			$("#savTProf").css("border-color", "black");
+			$("#savTProf").css("border-width", "2px");
+			$("#savTProf").css("text-decoration", "none");
+		}
+
+		if (window_width <= 390)
+		{
+			$("#diceStyle").css("width", "100%");
+		}
+		else
+		{
+			$("#diceStyle").css("width", "300px");
+		}
+
+		if (window_width <= 550)
 		{
 			$("#attribMenu").css("width", "100%");
 			$("#profMenu").css("width", "100%");
+			$("p").css("margin-bottom", "15px");
 		}
 		else
 		{
 			$("#attribMenu").css("width", "58.5%");
 			$("#profMenu").css("width", "39.5%");
+			$("p").css("margin-bottom", "78px");
 		}
+		$(".charPBlock").css("margin-bottom", "15px");
 	}
 
 	function init()

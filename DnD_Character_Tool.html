@@ -399,7 +399,7 @@
 	function updateMenuWidth()
 	{
 		var window_width = $( window ).width();
-		if (window_width < 350)
+		if (window_width < 340)
 		{
 			$("#savTProf").css("border", "none");
 			$("#savTProf").css("text-decoration", "underline");
@@ -433,8 +433,11 @@
 			$("#attribMenu").css("width", "58.5%");
 			$("#profMenu").css("width", "39.5%");
 			$("p").css("margin-bottom", "78px");
+			$(".charPBlock").css("margin-bottom", "15px");
+			$(".prevRoll").css("margin-bottom", "15px");
+			$("#rollOutput").css("margin-bottom", "15px");
+			$("#oldRolls").css("margin-bottom", "15px");
 		}
-		$(".charPBlock").css("margin-bottom", "15px");
 	}
 
 	function init()

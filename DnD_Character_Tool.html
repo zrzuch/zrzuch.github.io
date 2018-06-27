@@ -143,10 +143,10 @@
 	</div>
 	<div class="divHeaderMenu">
 		<div>
-			<select id="abil">
+			<select id="abil" class="inputSelectors">
 				<option value="Athletics">Athletics</option>
 				<option value="Acrobatics">Acrobatics</option>
-				<option value="Sleight">Sleight of Hand</option>
+				<option value="Sleight">Sleight</option>
 				<option value="Stealth">Stealth</option>
 				<option value="Arcana">Arcana</option>
 				<option value="History">History</option>
@@ -170,7 +170,7 @@
 	</div>
 	<div class="divHeaderMenu">
 		<div>
-			<select id="saving">
+			<select id="saving" class="inputSelectors">
 				<option value="strength">Strength</option>
 				<option value="dexterity">Dexterity</option>
 				<option value="constitution">Constitution</option>
@@ -196,8 +196,6 @@
 </p>
 <p id="oldRolls"></p>
 </div>
-
-<!-- save to file -->
 
 <style type="text/css">
 	html
@@ -232,13 +230,8 @@
 		font-size: 24px;
 		border-radius: 5px;
 	}
-	#attribMenu
-	{
-		width: 58.5%;
-	}
 	#profMenu
 	{
-		width: 39.5%;
 		word-break: keep-all;
 	}
 	#attribText
@@ -258,10 +251,14 @@
 	#diceRoll
 	{
 		width: 100%;
+		margin: 0;
+		padding: 0;
 	}
 	#rollMenu
 	{
-		width: 100%;
+		margin-top: 15px;
+		width: 450px;
+		vertical-align: top;
 	}
 	.prevRoll
 	{
@@ -282,10 +279,6 @@
 	{
 		height: auto;
 		width: 100%;
-	}
-	p
-	{
-		margin-bottom: 78px;
 	}
 	#savTProf
 	{
@@ -409,11 +402,11 @@
 			$("#savTProf").css("text-decoration", "none");
 		}
 
-		if (window_width <= 410)
+		if (window_width < 480)
 		{
 			$("#diceStyle").css("width", "100%");
 		}
-		else
+		else if (window_width < 825)
 		{
 			$("#diceStyle").css("width", "300px");
 		}
@@ -423,16 +416,37 @@
 			$("#attribMenu").css("width", "100%");
 			$("#profMenu").css("width", "100%");
 			$("p").css("margin-bottom", "15px");
+			$("#rollMenu").css("width", "100%");
 		}
 		else
 		{
-			$("#attribMenu").css("width", "58.5%");
-			$("#profMenu").css("width", "39.5%");
-			$("p").css("margin-bottom", "78px");
+			$("p").css("margin-bottom", "77px");
 			$(".charPBlock").css("margin-bottom", "15px");
 			$(".prevRoll").css("margin-bottom", "15px");
 			$("#rollOutput").css("margin-bottom", "15px");
 			$("#oldRolls").css("margin-bottom", "15px");
+			if (window_width >= 825)
+			{
+				$("#attribMenu").css("width", "auto");
+				$("#profMenu").css("width", "auto");
+				$("#rollMenu").css("margin-top", "15px");
+				var rollMenuWidth = window_width - 525;
+				$("#rollMenu").css("width", rollMenuWidth.toString() + "px");
+				if (rollMenuWidth < 450)
+				{
+					$("#diceStyle").css("width", "100%");
+				}
+				else
+				{
+					$("#diceStyle").css("width", "300px");
+				}
+			}
+			else
+			{
+				$("#attribMenu").css("width", "58.5%");
+				$("#profMenu").css("width", "39.5%");
+				$("#rollMenu").css("width", "100%");
+			}
 		}
 	}
 
@@ -945,7 +959,5 @@
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 </script>
-<br>
-<a href="http://zrzuch.github.io/">Return To Home</a>
 </body>
 </html>

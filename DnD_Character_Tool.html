@@ -432,6 +432,26 @@
 			$(this).css("box-shadow", "2px 2px 2px 0 #303030");
 		});
 
+		$(".buttonText, button").touchstart(function () 
+		{
+			$(this).css("box-shadow", "-2px -2px 2px 0 #303030");
+		});
+
+		$(".buttonText, button").touchmove(function () 
+		{
+			$(this).css("box-shadow", "2px 2px 2px 0 #303030");
+		});
+
+		$(".buttonText, button").touchend(function () 
+		{
+			$(this).css("box-shadow", "2px 2px 2px 0 #303030");
+		});
+
+		$(".buttonText, button").touchcancel(function () 
+		{
+			$(this).css("box-shadow", "2px 2px 2px 0 #303030");
+		});		
+
 		$(".twoDigitInput").keyup(function () 
 		{
 			updateSaveDCs();

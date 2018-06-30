@@ -208,14 +208,8 @@
 	}
 	html, body
 	{
-	    width: 100%;
-	    height: 100%;
 	    margin: 0;
-	    padding: 0px;
-	}
-	span
-	{
-		word-break: keep-all;
+	    padding: 0px; 
 	}
 	input
 	{
@@ -233,6 +227,10 @@
 	{
 		font-size: 24px;
 	}
+	#file-input
+	{
+		width: 0;
+	}
 	.buttonText, button
 	{
 		border: 0;
@@ -247,13 +245,16 @@
 	}
 	.top-content
 	{
+		margin-top: 0;
+		margin-bottom: 0;
 		margin-left: 10px;
+		margin-right: 0;
 	}
 	.center-content
 	{
-		width: 100%;
 		margin-top: 25px;
 		margin-left: 10px;
+		margin-right: 0;
 		padding: 0;	
 	}
 	#attribMenu
@@ -281,14 +282,20 @@
 	{
 		text-align: center;
 	}
+	#diceStyle
+	{
+		padding: 0;
+	}
 	#diceRoll
 	{
 		width: 100%;
 		margin: 0;
+		padding: 0;
 	}
 	#rollMenu
 	{
 		margin-top: 0;
+		padding: 0;
 		width: 450px;
 		vertical-align: top;
 	}
@@ -349,7 +356,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
 <script type="https://cdnjs.cloudflare.com/ajax/libs/blob-polyfill/2.0.20171115/Blob.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-filestyle/2.1.0/bootstrap-filestyle.js"> </script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-filestyle/2.1.0/bootstrap-filestyle.js"></script>
 <script type="text/javascript">
 
 	var reader = new FileReader();
@@ -514,6 +521,8 @@
 	function updateMenuWidth()
 	{
 		var window_width = $( window ).width();
+		$("[name='filedrag']").css("width", "0");
+		$("[name='filedrag']").css("height", "0");
 		if (window_width < 340)
 		{
 			$("#savTProf").css("border", "none");
@@ -530,7 +539,7 @@
 
 		if (window_width < 480)
 		{
-			$("#diceStyle").css("width", "100%");
+			$("#diceStyle").css("width", "98%");
 		}
 		else if (window_width < 825)
 		{
@@ -561,7 +570,7 @@
 				$("#rollMenu").css("width", rollMenuWidth.toString() + "px");
 				if (rollMenuWidth < 450)
 				{
-					$("#diceStyle").css("width", "100%");
+					$("#diceStyle").css("width", "98%");
 				}
 				else
 				{

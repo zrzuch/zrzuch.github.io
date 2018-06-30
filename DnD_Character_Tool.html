@@ -432,25 +432,25 @@
 			$(this).css("box-shadow", "2px 2px 2px 0 #303030");
 		});
 
-		$(".buttonText, button").touchstart(function () 
+		$(".buttonText, button").ontouchstart = function () 
 		{
 			$(this).css("box-shadow", "-2px -2px 2px 0 #303030");
-		});
+		};
 
-		$(".buttonText, button").touchmove(function () 
+		$(".buttonText, button").ontouchmove = function () 
 		{
 			$(this).css("box-shadow", "2px 2px 2px 0 #303030");
-		});
+		};
 
-		$(".buttonText, button").touchend(function () 
+		$(".buttonText, button").ontouchend = function () 
 		{
 			$(this).css("box-shadow", "2px 2px 2px 0 #303030");
-		});
+		};
 
-		$(".buttonText, button").touchcancel(function () 
+		$(".buttonText, button").ontouchcancel = function () 
 		{
 			$(this).css("box-shadow", "2px 2px 2px 0 #303030");
-		});		
+		};		
 
 		$(".twoDigitInput").keyup(function () 
 		{

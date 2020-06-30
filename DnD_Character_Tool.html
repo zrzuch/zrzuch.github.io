@@ -205,6 +205,16 @@
 	{
 		font-family: "Verdana", Verdana, sans-serif;
 		font-size: 24px;
+		color: white;
+		text-shadow: 	-2px 2px 2px #000,
+			  			2px 2px 2px #000,
+				  		2px -2px 2px #000,
+				  		-2px -2px 2px #000,
+						-1px 1px 2px #000,
+			  			1px 1px 2px #000,
+				  		1px -1px 2px #000,
+				  		-1px -1px 2px #000;
+		background-image: url("Images/map-background.jpg");
 	}
 	html, body
 	{
@@ -242,6 +252,8 @@
 		border-radius: 5px;
 		background-color: #F0F0F0;
 		box-shadow: 2px 2px 2px 0 #303030;
+		color: black;
+		text-shadow: none;
 	}
 	.top-content
 	{
@@ -254,7 +266,7 @@
 	{
 		margin-top: 25px;
 		margin-left: 10px;
-		margin-right: 0;
+		margin-right: 10px;
 		padding: 0;	
 	}
 	#attribMenu
@@ -296,7 +308,6 @@
 	{
 		margin-top: 0;
 		padding: 0;
-		width: 450px;
 		vertical-align: top;
 	}
 	.prevRoll
@@ -311,17 +322,31 @@
 	}
 	#rollOutput
 	{
-		height: auto;
-		width: 100%;
+		height: 100px;
+		border: 1px solid black;
+		border-radius: 5px;
+		padding: 5px;
+		background-color: white;
+		color: black;
+		text-shadow: none;
 	}
 	#oldRolls
 	{
-		height: auto;
-		width: 100%;
+		height: 200px;
+		overflow: auto;
+		border: 1px solid black;
+		border-radius: 5px;
+		padding: 5px;
+		background-color: white;
+		color: black;
+		text-shadow: none;
 	}
 	#savTProf
 	{
 		padding: 3px;
+		background-color: white;
+		color: black;
+		text-shadow: none;
 	}
 	#hitDice
 	{
@@ -330,6 +355,9 @@
 		border-style: solid;
 		border-color: black;
 		border-width: 2px;
+		background-color: white;
+		color: black;
+		text-shadow: none;
 	}
 	.divHeaderMenu
 	{
@@ -338,7 +366,7 @@
 	.select-toggle
 	{
 		width: 220px;
-		height: 600px;
+		height: 550px;
 	}
 	.bloc
 	{
@@ -354,8 +382,8 @@
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
-<script type="https://cdnjs.cloudflare.com/ajax/libs/blob-polyfill/2.0.20171115/Blob.min.js"></script>
+<script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/blob-polyfill/2.0.20171115/Blob.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-filestyle/2.1.0/bootstrap-filestyle.js"></script>
 <script type="text/javascript">
 
@@ -367,7 +395,7 @@
 
 		$(".twoDigitInput").keydown(function(e)
 		{
-			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
              // Allow: Ctrl/cmd+A
             (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
              // Allow: Ctrl/cmd+C
@@ -417,6 +445,11 @@
 	        }
 		});
 
+		$("#diceRoll").keyup(function(e)
+		{
+			this.value = this.value.toLowerCase();
+		});
+
 		$(".buttonText, button").mousedown(function () 
 		{
 			$(this).css("box-shadow", "-2px -2px 2px 0 #303030");
@@ -430,27 +463,7 @@
 		$(".buttonText, button").mouseleave(function () 
 		{
 			$(this).css("box-shadow", "2px 2px 2px 0 #303030");
-		});
-
-// 		$(".buttonText, button").ontouchstart = function () 
-// 		{
-// 			$(this).css("box-shadow", "-2px -2px 2px 0 #303030");
-// 		};
-
-// 		$(".buttonText, button").ontouchmove = function () 
-// 		{
-// 			$(this).css("box-shadow", "2px 2px 2px 0 #303030");
-// 		};
-
-// 		$(".buttonText, button").ontouchend = function () 
-// 		{
-// 			$(this).css("box-shadow", "2px 2px 2px 0 #303030");
-// 		};
-
-// 		$(".buttonText, button").ontouchcancel = function () 
-// 		{
-// 			$(this).css("box-shadow", "2px 2px 2px 0 #303030");
-// 		};		
+		});	
 
 		$(".twoDigitInput").keyup(function () 
 		{
@@ -546,7 +559,6 @@
 		if (window_width < 340)
 		{
 			$("#savTProf").css("border", "none");
-			$("#savTProf").css("text-decoration", "underline");
 		}
 		else
 		{
@@ -653,53 +665,46 @@
 	{
 		var attackType = $("#attack").val();
 		var roll = getRandomInteger(1, 20);
+		var modifier = 0;
+		var profBonus = 0;
+
 		if (attackType == "Strength")
 		{
-			var strengthScore = Math.floor(parseInt($('[name="strength"]').val()) / 2) - 5;
-			totalRoll = roll + strengthScore;
-			updateRollLog("d20 ( " + roll.toString() + " ) + " + strengthScore.toString() + " + 0 = " + totalRoll.toString());
+			modifier = Math.floor(parseInt($('[name="strength"]').val()) / 2) - 5;
 		}
 		else if (attackType == "profStrength")
 		{
-			var strengthScore = Math.floor(parseInt($('[name="strength"]').val()) / 2) - 5;
-			var profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
-			totalRoll = roll + strengthScore + profBonus;
-			updateRollLog("d20 ( " + roll.toString() + " ) + " + strengthScore.toString() + " + " + profBonus.toString() + " = " + totalRoll.toString());
+			modifier = Math.floor(parseInt($('[name="strength"]').val()) / 2) - 5;
+			profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
+			attackType = "Proficient Strength";
 		}
 		else if (attackType == "Dexterity")
 		{
-			var dexterityScore = Math.floor(parseInt($('[name="dexterity"]').val()) / 2) - 5;
-			totalRoll = roll + dexterityScore;
-			updateRollLog("d20 ( " + roll.toString() + " ) + " + dexterityScore.toString() + " + 0 = " + totalRoll.toString());
+			modifier = Math.floor(parseInt($('[name="dexterity"]').val()) / 2) - 5;
 		}
 		else if (attackType == "profDexterity")
 		{
-			var dexterityScore = Math.floor(parseInt($('[name="dexterity"]').val()) / 2) - 5;
-			var profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
-			totalRoll = roll + dexterityScore + profBonus;
-			updateRollLog("d20 ( " + roll.toString() + " ) + " + dexterityScore.toString() + " + " + profBonus.toString() + " = " + totalRoll.toString());
+			modifier = Math.floor(parseInt($('[name="dexterity"]').val()) / 2) - 5;
+			profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
+			attackType = "Proficient Dexterity";
 		}
 		else if (attackType == "Intelligence")
 		{
-			var score = Math.floor(parseInt($('[name="intelligence"]').val()) / 2) - 5;
-			var profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
-			totalRoll = roll + score + profBonus;
-			updateRollLog("d20 ( " + roll.toString() + " ) + " + score.toString() + " + " + profBonus.toString() + " = " + totalRoll.toString());
+			modifier = Math.floor(parseInt($('[name="intelligence"]').val()) / 2) - 5;
+			profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
 		}
 		else if (attackType == "Wisdom")
 		{
-			var score = Math.floor(parseInt($('[name="wisdom"]').val()) / 2) - 5;
-			var profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
-			totalRoll = roll + score + profBonus;
-			updateRollLog("d20 ( " + roll.toString() + " ) + " + score.toString() + " + " + profBonus.toString() + " = " + totalRoll.toString());
+			modifier = Math.floor(parseInt($('[name="wisdom"]').val()) / 2) - 5;
+			profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
 		}
 		else
 		{
-			var score = Math.floor(parseInt($('[name="charisma"]').val()) / 2) - 5;
-			var profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
-			totalRoll = roll + score + profBonus;
-			updateRollLog("d20 ( " + roll.toString() + " ) + " + score.toString() + " + " + profBonus.toString() + " = " + totalRoll.toString());
+			modifier = Math.floor(parseInt($('[name="charisma"]').val()) / 2) - 5;
+			profBonus = Math.floor((parseInt($('[name="level"]').val()) - 1) / 4) + 2;
 		}
+
+		normalizedRollOutput(attackType + " Attack", roll, 20, profBonus, modifier);
 	}
 
 	function updateClassFields()
@@ -869,7 +874,6 @@
 		}
 		
 		var roll = getRandomInteger(1, 20);
-		var check = roll + abilityBonus + profBonus;
 
 		if (typeOfCheck == "Sleight")
 		{
@@ -880,7 +884,7 @@
 			typeOfCheck = "Animal Handling";
 		}
 
-		updateRollLog( typeOfCheck + " = " + roll.toString() + " (d20) + " + abilityBonus.toString() + " + " + profBonus.toString() + " = " + check.toString());
+		normalizedRollOutput(typeOfCheck + " Ability Check", roll, 20, profBonus, abilityBonus);
 	}
 
 	function calcInitiative() 
@@ -889,9 +893,7 @@
 
 		var bonus = Math.floor(parseInt($('[name="dexterity"]').val()) / 2) - 5;
 
-		var check = roll + bonus;
-
-		updateRollLog("Initiative = " + roll.toString() + " (d20) + " + bonus.toString() + " = " + check.toString());
+		normalizedRollOutput("Initiative", roll, 20, 0, bonus);
 	}
 
 	function calcSavingThrow() 
@@ -956,14 +958,15 @@
 
 		var saveType = typeOfSave.charAt(0).toUpperCase() + typeOfSave.substr(1);
 
-		updateRollLog( saveType + " = " + roll.toString() + " (d20) + " + abilityBonus.toString() + " + " + profBonus.toString() + " = " + check.toString());
+		normalizedRollOutput(saveType + " Saving Throw", roll, 20, profBonus, abilityBonus);
 	}
 
 	function calcRoll() 
 	{
+		var rollInput = $("#diceRoll").val().trim().replace(/\s+/g, '').replaceAll('+', ' + ').replaceAll('-', ' - ');
 		const MINUS_OR_PLUS_WAS_LAST = false;
 		const ROLL_WAS_LAST = true;
-		var rolls = $("#diceRoll").val().trim().split(" ");
+		var rolls = rollInput.trim().split(" ");
 		var rollsOutput = "";
 		var isPositive = true;
 		var totalRoll = 0;
@@ -1100,6 +1103,21 @@
 		{
 			return false;
 		}
+	}
+
+	function normalizedRollOutput(nameOfTheRoll, diceRoll, diceSides, proficiencyBonus, modifier)
+	{
+		var output = nameOfTheRoll + " = d" + diceSides.toString() + " ( " + diceRoll.toString() + " ) + " + proficiencyBonus.toString();
+
+		output += (modifier >= 0) ? " + " : " - "; 
+
+		var adjustedRoll = diceRoll + proficiencyBonus + modifier;
+
+		modifier = Math.abs(modifier);
+
+		output += modifier.toString() + " = " + adjustedRoll.toString();
+
+		updateRollLog(output);
 	}
 
 	function updateRollLog(output)

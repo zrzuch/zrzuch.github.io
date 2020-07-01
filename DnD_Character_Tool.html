@@ -27,8 +27,12 @@
 	</div>
 	<div class="divHeaderMenu">
 		Level 
-		<input type="tel" name="level" maxlength="2" class="twoDigitInput" class="saveAttrib">
+		<input type="tel" name="level" id="level" maxlength="2" class="twoDigitInput" class="saveAttrib">
+		Experience Points 
+		<input type="tel" name="xp" maxlength="6" id="xp" class="twoDigitInput" class="saveAttrib">
+		<button onclick="updateLevel()">Update Level</button>
 	</div>
+	<br>
 	<div class="divHeaderMenu">
 		Armor Class 
 		<input type="tel" name="armorClass" maxlength="2" class="twoDigitInput">
@@ -116,76 +120,58 @@
 			</select>
 		</div>
 	</div>
-	<div id="rollMenu">
-		<div id="rollInput" class="divHeaderMenu">
-			<div id="diceStyle">
-				<input type="text" name="roll" id="diceRoll">
-			</div>
-			<div>
-				<button onclick="calcRoll()" class="rollButtons">Roll</button>
-			</div>
-			<div>
-				<button onclick="$('#diceRoll').val('')" class="rollButtons">Clear</button>
-			</div>
+	<div id="rollMenu" class="inlineMenu">
+		<div id="rollInput">
+			<input type="text" name="roll" id="diceRoll">
+			<button onclick="calcRoll()" class="rollButtons">Roll</button>
+			<button onclick="$('#diceRoll').val('')" class="rollButtons">Clear</button>
 		</div>
 		<div class="divHeaderMenu">
-			<div>
-				<select id="attack">
-					<option value="Strength">Strength</option>
-					<option value="profStrength">Proficient Strength</option>
-					<option value="Dexterity">Dexterity</option>
-					<option value="profDexterity">Proficient Dexterity</option>
-					<option value="Intelligence">Intelligence</option>
-					<option value="Wisdom">Wisdom</option>
-					<option value="Charisma">Charisma</option>
-				</select>
-			</div>
-			<div>
-				<button onclick="calcAttackRoll()">Attack Roll</button>
-			</div>
+			<select id="attack">
+				<option value="Strength">Strength</option>
+				<option value="profStrength">Proficient Strength</option>
+				<option value="Dexterity">Dexterity</option>
+				<option value="profDexterity">Proficient Dexterity</option>
+				<option value="Intelligence">Intelligence</option>
+				<option value="Wisdom">Wisdom</option>
+				<option value="Charisma">Charisma</option>
+			</select>
+			<button onclick="calcAttackRoll()">Attack Roll</button>
 		</div>
 		<div class="divHeaderMenu">
-			<div>
-				<select id="abil" class="inputSelectors">
-					<option value="Athletics">Athletics</option>
-					<option value="Acrobatics">Acrobatics</option>
-					<option value="Sleight">Sleight</option>
-					<option value="Stealth">Stealth</option>
-					<option value="Arcana">Arcana</option>
-					<option value="History">History</option>
-					<option value="Investigation">Investigation</option>
-					<option value="Nature">Nature</option>
-					<option value="Religion">Religion</option>
-					<option value="Animal">Animal Handling</option>
-					<option value="Insight">Insight</option>
-					<option value="Medicine">Medicine</option>
-					<option value="Perception">Perception</option>
-					<option value="Survival">Survival</option>
-					<option value="Deception">Deception</option>
-					<option value="Intimidation">Intimidation</option>
-					<option value="Performance">Performance</option>
-					<option value="Persuasion">Persuasion</option>
-				</select>
-			</div>
-			<div>
-				<button onclick="calcAbilityCheck()">Ability Check</button>
-			</div>
+			<select id="abil" class="inputSelectors">
+				<option value="Athletics">Athletics</option>
+				<option value="Acrobatics">Acrobatics</option>
+				<option value="Sleight">Sleight</option>
+				<option value="Stealth">Stealth</option>
+				<option value="Arcana">Arcana</option>
+				<option value="History">History</option>
+				<option value="Investigation">Investigation</option>
+				<option value="Nature">Nature</option>
+				<option value="Religion">Religion</option>
+				<option value="Animal">Animal Handling</option>
+				<option value="Insight">Insight</option>
+				<option value="Medicine">Medicine</option>
+				<option value="Perception">Perception</option>
+				<option value="Survival">Survival</option>
+				<option value="Deception">Deception</option>
+				<option value="Intimidation">Intimidation</option>
+				<option value="Performance">Performance</option>
+				<option value="Persuasion">Persuasion</option>
+			</select>
+			<button onclick="calcAbilityCheck()">Ability Check</button>
 		</div>
 		<div class="divHeaderMenu">
-			<div>
-				<select id="saving" class="inputSelectors">
-					<option value="strength">Strength</option>
-					<option value="dexterity">Dexterity</option>
-					<option value="constitution">Constitution</option>
-					<option value="intelligence">Intelligence</option>
-					<option value="wisdom">Wisdom</option>
-					<option value="charisma">Charisma</option>
-					<option value="Death">Death</option>
-				</select>
-			</div>
-			<div>
-				<button onclick="calcSavingThrow()">Saving Throw</button>
-			</div>
+			<select id="saving" class="inputSelectors">
+				<option value="strength">Strength</option>
+				<option value="dexterity">Dexterity</option>
+				<option value="constitution">Constitution</option>
+				<option value="intelligence">Intelligence</option>
+				<option value="wisdom">Wisdom</option>
+				<option value="charisma">Charisma</option>
+				<option value="Death">Death</option>
+			</select>
+			<button onclick="calcSavingThrow()">Saving Throw</button>
 		</div>
 		<button onclick="calcInitiative()">Initiative Roll</button>
 		<p class="prevRoll">
@@ -200,20 +186,11 @@
 	<p id="oldRolls"></p>
 	</div>
 </div>
+<div id="notes-editor" class="editors"></div>
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <style type="text/css">
 	html
 	{
-		font-family: "Verdana", Verdana, sans-serif;
-		font-size: 24px;
-		color: white;
-		text-shadow: 	-2px 2px 2px #000,
-			  			2px 2px 2px #000,
-				  		2px -2px 2px #000,
-				  		-2px -2px 2px #000,
-						-1px 1px 2px #000,
-			  			1px 1px 2px #000,
-				  		1px -1px 2px #000,
-				  		-1px -1px 2px #000;
 		background-image: url("Images/map-background.jpg");
 	}
 	html, body
@@ -228,14 +205,17 @@
 		border-style: solid;
 		border-color: black;
 	}
-	div
+	div 
 	{
 		word-break: keep-all;
-		display: inline-block;
 	}
 	select
 	{
 		font-size: 24px;
+	}
+	.divHeaderMenu, #attribText, .inlineMenu, .bootstrap-filestyle, .rollButtons
+	{
+		display: inline-block;
 	}
 	#file-input
 	{
@@ -254,6 +234,20 @@
 		box-shadow: 2px 2px 2px 0 #303030;
 		color: black;
 		text-shadow: none;
+	}
+	.top-content, .center-content
+	{
+		color: white;
+		text-shadow: 	-2px 2px 2px #000,
+			  			2px 2px 2px #000,
+				  		2px -2px 2px #000,
+				  		-2px -2px 2px #000,
+						-1px 1px 2px #000,
+			  			1px 1px 2px #000,
+				  		1px -1px 2px #000,
+				  		-1px -1px 2px #000;
+		font-family: "Verdana", Verdana, sans-serif;
+		font-size: 24px;
 	}
 	.top-content
 	{
@@ -283,7 +277,10 @@
 	#attribText
 	{
 		width: 150px;
-		display: inline-block;
+	}
+	#xp
+	{
+		width: 100px !important;
 	}
 	.twoDigitInput
 	{
@@ -293,10 +290,6 @@
 	#alignInput
 	{
 		text-align: center;
-	}
-	#diceStyle
-	{
-		padding: 0;
 	}
 	#diceRoll
 	{
@@ -329,6 +322,7 @@
 		background-color: white;
 		color: black;
 		text-shadow: none;
+		overflow: auto;
 	}
 	#oldRolls
 	{
@@ -366,7 +360,7 @@
 	.select-toggle
 	{
 		width: 220px;
-		height: 550px;
+		height: 560px;
 	}
 	.bloc
 	{
@@ -380,17 +374,61 @@
 		padding: 10px;
 		margin: -5px -20px -5px -5px;
 	}
+	.editors
+	{
+		background-color: white;
+		color: black;
+		text-shadow: none;
+		width: 100%;
+		height: 400px;
+	}
+	.ql-toolbar
+	{
+		background-color: white;
+	}
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/blob-polyfill/2.0.20171115/Blob.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-filestyle/2.1.0/bootstrap-filestyle.js"></script>
+<script type="text/javascript" src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script type="text/javascript">
 
 	var reader = new FileReader();
 
+	var toolbarOptions = 
+	[
+  		['bold', 'italic', 'underline', 'strike'],        	// toggled buttons
+  		['blockquote', 'code-block'],
+
+  		[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  		[{ 'script': 'sub'}, { 'script': 'super' }],      	// superscript/subscript
+  		[{ 'indent': '-1'}, { 'indent': '+1' }],          	// outdent/indent
+  		[{ 'direction': 'rtl' }],                         	// text direction
+
+  		[{ 'size': [] }],  									// custom dropdown
+  		[{ 'header': [] }],
+
+  		[{ 'color': [] }, { 'background': [] }],          	// dropdown with defaults from theme
+  		[{ 'font': [] }],
+  		[{ 'align': [] }],
+
+  		['clean']                                         	// remove formatting button
+	];
+
 	$(document).ready(function() 
 	{
+		var notesQuill = new Quill("#notes-editor", 
+		{
+			modules:
+			{
+				toolbar: toolbarOptions
+			},
+			readOnly : false,
+			placeholder: "Enter Notes",
+			theme: "snow"
+		});
+
 		init();
 
 		$(".twoDigitInput").keydown(function(e)
@@ -510,11 +548,27 @@
 				set_input(lines[10], "wisdom", 2);
 				set_input(lines[11], "charisma", 2);
 				set_proficiencies(lines[12].split(" "));
+				set_input(lines[13], "xp", 6);
 				updateClassFields();
 			};
 			reader.readAsText(file);
 		});
 	});
+
+	function updateLevel()
+	{
+		var xpPerLevel = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000];
+		var currentXP = parseInt($("#xp").val().trim());
+		var i = 1;
+		if (!isNaN(currentXP))
+		{	
+			while (i < xpPerLevel.length && xpPerLevel[i] <= currentXP)
+			{
+				++i;
+			}
+		}
+		$("#level").val(i);
+	}
 
 	function set_class_selector(class_string)
 	{
@@ -569,15 +623,6 @@
 			$("#savTProf").css("text-decoration", "none");
 		}
 
-		if (window_width < 480)
-		{
-			$("#diceStyle").css("width", "98%");
-		}
-		else if (window_width < 825)
-		{
-			$("#diceStyle").css("width", "300px");
-		}
-
 		if (window_width <= 550)
 		{
 			$("#attribMenu").css("width", "100%");
@@ -600,14 +645,6 @@
 				$("#rollInput").css("margin-top", "0");
 				var rollMenuWidth = window_width - 545;
 				$("#rollMenu").css("width", rollMenuWidth.toString() + "px");
-				if (rollMenuWidth < 450)
-				{
-					$("#diceStyle").css("width", "98%");
-				}
-				else
-				{
-					$("#diceStyle").css("width", "300px");
-				}
 			}
 			else
 			{
@@ -963,7 +1000,7 @@
 
 	function calcRoll() 
 	{
-		var rollInput = $("#diceRoll").val().trim().replace(/\s+/g, '').replaceAll('+', ' + ').replaceAll('-', ' - ');
+		var rollInput = $("#diceRoll").val().trim().replace(/\s+/g, '').replace(/\+/g, ' + ').replace(/-/g, ' - ');
 		const MINUS_OR_PLUS_WAS_LAST = false;
 		const ROLL_WAS_LAST = true;
 		var rolls = rollInput.trim().split(" ");
@@ -1159,6 +1196,8 @@
 		{
 			file_string += proficiencies[i] + " ";
 		}
+
+		file_string += "\n" + $('[name="xp"]').val().trim() + "\n";
 
 		var blob = new Blob([file_string], {type: "text/plain;charset=utf-8"});
   		saveAs(blob, "Character_Sheet.txt");

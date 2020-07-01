@@ -9,6 +9,14 @@
 	<button onclick="save()">Save</button>
 	<input type="file" id="file-input" class="filestyle" data-text="Load" data-dragdrop="false" data-input="false" data-classIcon="icon-plus">
 	<div class="divHeaderMenu">
+		Name 
+		<input type="tel" name="characterName" maxlength="20" class="nameInput">
+	</div>
+	<div class="divHeaderMenu">
+		Race 
+		<input type="tel" name="race" maxlength="13" class="raceInput">
+	</div>
+	<div class="divHeaderMenu">
 		Class 
 		<select id="classSelector" onchange="updateClassFields()">
 			<option value="Barbarian">Barbarian</option>
@@ -62,41 +70,67 @@
 		<div class="divHeaderMenu"><span id="savTProf"></span></div>
 	</div>
 </div>
-<br>
 <div class="center-content">
 	<div id="attribMenu" class="divHeaderMenu">
-		<p style="margin-top: 0;">
-			<span id="attribText">Strength</span>
-			<input type="tel" name="strength" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
-			<span id="strSaveDC"></span>
-		</p>
-		<p>
-			<span id="attribText">Dexterity</span>
-			<input type="tel" name="dexterity" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
-			<span id="dexSaveDC"></span>
-		</p>
-		<p>
-			<span id="attribText">Constitution</span>
-			<input type="tel" name="constitution" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
-			<span id="conSaveDC"></span>
-		</p>
-		<p>
-			<span id="attribText">Intelligence</span>
-			<input type="tel" name="intelligence" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
-			<span id="intSaveDC"></span>
-		</p>
-		<p>
-			<span id="attribText">Wisdom</span>
-			<input type="tel" name="wisdom" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
-			<span id="wisSaveDC"></span>
-		</p>
-		<p class="charPBlock">
-			<span id="attribText">Charisma</span>
-			<input type="tel" name="charisma" maxlength="2" class="twoDigitInput" class="saveAttrib"> = 
-			<span id="charSaveDC"></span>
-		</p>
+		<table>
+			<tr>
+				<th>Attributes</th>
+				<th>Save DC</th>
+				<th>Modifier</th>
+			</tr>
+			<tr>
+				<td>
+					<span id="attribText">Strength</span>
+					<input type="tel" name="strength" maxlength="2" class="twoDigitInput" class="saveAttrib">
+				</td>
+				<td><span id="strSaveDC"></span></td>
+				<td><span id="strMod"></span></td>
+			</tr>
+			<tr>
+				<td>
+					<span id="attribText">Dexterity</span>
+					<input type="tel" name="dexterity" maxlength="2" class="twoDigitInput" class="saveAttrib">
+				</td>
+				<td><span id="dexSaveDC"></span></td>
+				<td><span id="dexMod"></span></td>
+			</tr>
+			<tr>
+				<td>
+					<span id="attribText">Constitution</span>
+					<input type="tel" name="constitution" maxlength="2" class="twoDigitInput" class="saveAttrib">
+				</td>
+				<td><span id="conSaveDC"></span></td>
+				<td><span id="conMod"></span></td>
+			</tr>
+			<tr>
+				<td>
+					<span id="attribText">Intelligence</span>
+					<input type="tel" name="intelligence" maxlength="2" class="twoDigitInput" class="saveAttrib">
+				</td>
+				<td><span id="intSaveDC"></span></td>
+				<td><span id="intMod"></span></td>
+			</tr>
+			<tr>
+				<td>
+					<span id="attribText">Wisdom</span>
+					<input type="tel" name="wisdom" maxlength="2" class="twoDigitInput" class="saveAttrib">
+				</td>
+				<td><span id="wisSaveDC"></span></td>
+				<td><span id="wisMod"></span></td>
+			</tr>
+			<tr>
+				<td>
+					<span id="attribText">Charisma</span>
+					<input type="tel" name="charisma" maxlength="2" class="twoDigitInput" class="saveAttrib">
+				</td>
+				<td><span id="charSaveDC"></span></td>
+				<td><span id="charMod"></span></td>
+			</tr>
+		</table>
 	</div>
 	<div id="profMenu" class="divHeaderMenu">
+		<h4>Skills</h4>
+		<br>
 		<div class="bloc">
 			<select id="profList" class="select-toggle" multiple="multiple">
 				<option value="Athletics"> Athletics</option>
@@ -213,7 +247,7 @@
 	{
 		font-size: 24px;
 	}
-	.divHeaderMenu, #attribText, .inlineMenu, .bootstrap-filestyle, .rollButtons
+	.divHeaderMenu, #attribText, .inlineMenu, .bootstrap-filestyle, .rollButtons, #rollInput, .bloc
 	{
 		display: inline-block;
 	}
@@ -272,6 +306,7 @@
 	{
 		margin-top: 0;
 		vertical-align: top;
+		text-align: center;
 		word-break: keep-all;
 	}
 	#attribText
@@ -282,12 +317,19 @@
 	{
 		width: 100px !important;
 	}
+	.nameInput
+	{
+		width: 300px;
+	}
+	.raceInput
+	{
+		width: 200px;
+	}
 	.twoDigitInput
 	{
-		text-align: center;
 		width: 50px;
 	}
-	#alignInput
+	#alignInput, .nameInput, .raceInput, .twoDigitInput, .prevRoll, #profMenu h4, table tr td
 	{
 		text-align: center;
 	}
@@ -305,7 +347,6 @@
 	}
 	.prevRoll
 	{
-		text-align: center;
 		font-weight: bold;
 		font-size: 24px;
 	}
@@ -364,7 +405,6 @@
 	}
 	.bloc
 	{
-		display: inline-block;
 		overflow: hidden;
 		border-radius: 5px;
 		border: solid black 1px;
@@ -376,15 +416,31 @@
 	}
 	.editors
 	{
-		background-color: white;
 		color: black;
 		text-shadow: none;
-		width: 100%;
 		height: 400px;
 	}
-	.ql-toolbar
+	.ql-toolbar, .editors
 	{
 		background-color: white;
+		width: 100%;
+	}
+	#attribMenu table
+	{
+		width: 100%;
+		border-radius: 5px;
+	}
+	#attribText
+	{
+		padding-top: 25px;
+		padding-bottom: 25px;
+	}
+	#profMenu h4
+	{
+		margin-top: 0;
+		margin-bottom: 0;
+		margin-right: 0;
+		margin-left: 0;
 	}
 </style>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -398,22 +454,20 @@
 
 	var toolbarOptions = 
 	[
-  		['bold', 'italic', 'underline', 'strike'],        	// toggled buttons
+  		['bold', 'italic', 'underline', 'strike'], 			// toggled buttons 
+  		[{ 'script': 'sub'} , { 'script': 'super' }],      	// superscript/subscript
+  		['clean'],                                         	// remove formatting button
   		['blockquote', 'code-block'],
 
   		[{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  		[{ 'script': 'sub'}, { 'script': 'super' }],      	// superscript/subscript
   		[{ 'indent': '-1'}, { 'indent': '+1' }],          	// outdent/indent
-  		[{ 'direction': 'rtl' }],                         	// text direction
 
   		[{ 'size': [] }],  									// custom dropdown
   		[{ 'header': [] }],
 
   		[{ 'color': [] }, { 'background': [] }],          	// dropdown with defaults from theme
   		[{ 'font': [] }],
-  		[{ 'align': [] }],
-
-  		['clean']                                         	// remove formatting button
+  		[{ 'align': [] }]
 	];
 
 	$(document).ready(function() 
@@ -510,6 +564,7 @@
 		$(".twoDigitInput").keyup(function () 
 		{
 			updateSaveDCs();
+			updateModifiers();
 		});
 
 		$(window).resize(function ()
@@ -553,6 +608,8 @@
 				set_input(lines[11], "charisma", 2);
 				set_proficiencies(lines[12].split(" "));
 				set_input(lines[13], "xp", 6);
+				set_input_string(lines[14], "characterName");
+				set_input_string(lines[15], "race");
 				updateClassFields();
 			};
 			reader.readAsText(file);
@@ -597,6 +654,11 @@
 		$('[name="' + id + '"]').val(number.toString());
 	}
 
+	function set_input_string(input, id)
+	{
+		$('[name="' + id + '"]').val(input);
+	}
+
 	function set_proficiencies(prof) 
 	{
 		for (var i = 0; i < prof.length; ++i)
@@ -614,6 +676,18 @@
 		var window_width = $( window ).width();
 		$("[name='filedrag']").css("width", "0");
 		$("[name='filedrag']").css("height", "0");
+
+		if (window_width >= 1208 || (window_width >= 600 && window_width < 1000))
+		{
+			$("#diceRoll").css("width", "300px");
+			$("#rollInput").css("width", "465px");
+		}
+		else
+		{
+			$("#diceRoll").css("width", "100%");
+			$("#rollInput").css("width", "100%");
+		}
+
 		if (window_width < 340)
 		{
 			$("#savTProf").css("border", "none");
@@ -627,7 +701,7 @@
 			$("#savTProf").css("text-decoration", "none");
 		}
 
-		if (window_width <= 550)
+		if (window_width <= 560)
 		{
 			$("#attribMenu").css("width", "100%");
 			$("#profMenu").css("width", "100%");
@@ -641,19 +715,20 @@
 			$(".prevRoll").css("margin-bottom", "15px");
 			$("#rollOutput").css("margin-bottom", "15px");
 			$("#oldRolls").css("margin-bottom", "15px");
-			if (window_width >= 825)
+			if (window_width >= 1000)
 			{
-				$("#attribMenu").css("width", "302px");
+				var attribMenuWidth = 500;
+				$("#attribMenu").css("width", attribMenuWidth.toString() + "px");
 				$("#profMenu").css("width", "auto");
 				$("#rollMenu").css("margin-top", "0");
 				$("#rollInput").css("margin-top", "0");
-				var rollMenuWidth = window_width - 545;
+				var rollMenuWidth = window_width - attribMenuWidth - 243;
 				$("#rollMenu").css("width", rollMenuWidth.toString() + "px");
 			}
 			else
 			{
-				$("#attribMenu").css("width", "58.5%");
-				$("#profMenu").css("width", "39.5%");
+				$("#attribMenu").css("width", "63.5%");
+				$("#profMenu").css("width", "auto");
 				$("#rollMenu").css("width", "100%");
 			}
 		}
@@ -700,6 +775,7 @@
 		}
 
 		updateSaveDCs();
+		updateModifiers();
 	}
 
 	function calcAttackRoll()
@@ -872,6 +948,27 @@
 		$("#intSaveDC").text(intelligenceSave.toString());
 		$("#wisSaveDC").text(wisdomSave.toString());
 		$("#charSaveDC").text(charismaSave.toString());
+	}
+
+	function updateModifiers()
+	{
+		var strAbilityBonus = Math.floor(parseInt($('[name="strength"]').val()) / 2) - 5;
+		$("#strMod").text(strAbilityBonus.toString());
+
+		var dexAbilityBonus = Math.floor(parseInt($('[name="dexterity"]').val()) / 2) - 5;
+		$("#dexMod").text(dexAbilityBonus.toString());
+
+		var conAbilityBonus = Math.floor(parseInt($('[name="constitution"]').val()) / 2) - 5;
+		$("#conMod").text(conAbilityBonus.toString());
+
+		var intAbilityBonus = Math.floor(parseInt($('[name="intelligence"]').val()) / 2) - 5;
+		$("#intMod").text(intAbilityBonus.toString());
+
+		var wisAbilityBonus = Math.floor(parseInt($('[name="wisdom"]').val()) / 2) - 5;
+		$("#wisMod").text(wisAbilityBonus.toString());
+
+		var charAbilityBonus = Math.floor(parseInt($('[name="charisma"]').val()) / 2) - 5;
+		$("#charMod").text(charAbilityBonus.toString());
 	}
 
 	function calcAbilityCheck() 
@@ -1194,6 +1291,7 @@
 		+ $('[name="wisdom"]').val().trim() 	  	+ "\n"
 		+ $('[name="charisma"]').val().trim() 	  	+ "\n";
 		
+		
 		var proficiencies = $("#profList").val();
 
 		for (var i = 0; i < proficiencies.length; ++i)
@@ -1201,7 +1299,9 @@
 			file_string += proficiencies[i] + " ";
 		}
 
-		file_string += "\n" + $('[name="xp"]').val().trim() + "\n";
+		file_string += "\n" + $('[name="xp"]').val().trim() 	+ "\n"
+					+ $('[name="characterName"]').val().trim() 	+ "\n"
+					+ $('[name="race"]').val().trim() 	  		+ "\n";
 
 		var blob = new Blob([file_string], {type: "text/plain;charset=utf-8"});
   		saveAs(blob, "Character_Sheet.txt");

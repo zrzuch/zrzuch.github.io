@@ -10,11 +10,11 @@
 	<input type="file" id="file-input" class="filestyle" data-text="Load" data-dragdrop="false" data-input="false" data-classIcon="icon-plus">
 	<div class="divHeaderMenu">
 		Name 
-		<input type="tel" name="characterName" maxlength="20" class="nameInput">
+		<input name="characterName" maxlength="20" class="nameInput">
 	</div>
 	<div class="divHeaderMenu">
 		Race 
-		<input type="tel" name="race" maxlength="13" class="raceInput">
+		<input name="race" maxlength="13" class="raceInput">
 	</div>
 	<div class="divHeaderMenu">
 		Class 
@@ -1299,9 +1299,9 @@
 			file_string += proficiencies[i] + " ";
 		}
 
-		file_string += "\n" + $('[name="xp"]').val().trim() 	+ "\n"
-					+ $('[name="characterName"]').val().trim() 	+ "\n"
-					+ $('[name="race"]').val().trim() 	  		+ "\n";
+		file_string += "\n" + $('[name="xp"]').val().trim() 			+ "\n"
+							+ $('[name="characterName"]').val().trim() 	+ "\n"
+							+ $('[name="race"]').val().trim() 	  		+ "\n";
 
 		var blob = new Blob([file_string], {type: "text/plain;charset=utf-8"});
   		saveAs(blob, "Character_Sheet.txt");
